@@ -36,25 +36,23 @@ It's an exercise in basic MySQL-queries.
 
 ## Queries
 
-### 1. 
-I vilka länder har företaget anställda? Ange `Country` samt visa inte dubbletter i svaret.
-
+### 1.
+In which countries does the company have employees? Specify `Country` and do not show duplicates in the answer.
 ```SQL
 SELECT DISTINCT Country 
 FROM Employees
 ```
 
-### 2. 
-Vilka kategorier av produkter finns det i databasen? Ange `CategoryID` och `CategoryName`. Sortera efter `CategoryName` i fallande ordning.
-
+### 2.
+What categories of products are there in the database? Specify `CategoryID` and `CategoryName`. Sort by `CategoryName` in descending order.
 ```SQL
 SELECT CategoryID, CategoryName 
 FROM Categories
 ORDER BY CategoryName DESC
 ```
 
-### 3. 
-Gör en telefonlista över samtliga tyska kunder. Ange `CompanyName`, `ContactName`, `Phone` samt `Fax`. Sortera efter `CompanyName` i fallande ordning.
+### 3.
+Create a phone list of all German customers. Specify `CompanyName`, `ContactName`, `Phone`, and `Fax`. Sort by `CompanyName` in descending order.
 ```SQL
 SELECT CompanyName, ContactName, Phone, Fax 
 FROM Customers
@@ -62,48 +60,48 @@ WHERE Country LIKE 'Germany'
 ORDER BY CompanyName DESC
 ```
 
-### 4. 
-I vilka svenska städer finns det kunder? Ange `City`.
+### 4.
+In which Swedish cities are there customers? Specify `City`.
 ```SQL
 SELECT City 
 FROM Customers 
 WHERE Country LIKE 'Sweden'
 ```
 
-### 5. 
-Vilka produkter innehåller ordet 'mix' i sitt produktnamn? Ange `ProductName`.
+### 5.
+Which products contain the word 'mix' in their product name? Specify `ProductName`.
 ```SQL
 SELECT ProductName 
 FROM Products 
 WHERE ProductName LIKE '%mix'
 ```
 
-### 6. 
-Vilken anställd föddes `1966-01-27`? Ange `FirstName` och `LastName`.
+### 6.
+Which employee was born on `1966-01-27`? Specify `FirstName` and `LastName`.
 ```SQL
 SELECT FirstName, LastName 
 FROM Employees
 WHERE BirthDate = '1966-01-27'
 ```
 
-### 7. 
-Vilken anställd har ingen chef (dvs där `ReportsTo` är `NULL`)? Ange `FirstName` och `LastName`.
+### 7.
+Which employee has no manager (i.e., where `ReportsTo` is `NULL`)? Specify `FirstName` and `LastName`.
 ```SQL
 SELECT FirstName, LastName 
 FROM Employees
 WHERE ReportsTo IS NULL
 ```
 
-### 8. 
-Vilka produkter behöver beställas, dvs där lagerantalet är mindre än ReorderLevel (ta inte med produkter som har utgått ur sortimentet) Ange `ProductName`, `UnitsInStock` samt `ReorderLevel`.
+### 8.
+Which products need to be ordered, i.e., where the stock quantity is less than `ReorderLevel` (do not include products that have been discontinued)? Specify `ProductName`, `UnitsInStock`, and `ReorderLevel`.
 ```SQL
 SELECT ProductName, UnitsInStock, ReorderLevel 
 FROM Products
 WHERE UnitsInStock < ReorderLevel
 ```
 
-### 9. 
-Vilka tyska och franska leverantörer finns i databasen? Ange `CompanyName`, `ContactName`, `Country`, `Phone` samt `Homepage`. Sortera efter `CompanyName` i fallande ordning.
+### 9.
+Which German and French suppliers are in the database? Specify `CompanyName`, `ContactName`, `Country`, `Phone`, and `Homepage`. Sort by `CompanyName` in descending order.
 ```SQL
 SELECT CompanyName, ContactName, Country, Phone, Homepage 
 FROM Suppliers
@@ -111,8 +109,8 @@ WHERE Country IN ('Germany', 'France')
 ORDER BY CompanyName DESC
 ```
 
-### 10. 
-Vilka produkter finns det mer än 100 av i lager? Ange `ProductID`, `ProductName`, `UnitPrice` samt `UnitsInStock`. Sortera först efter `UnitPrice` i fallande ordning och sedan efter `UnitsInStock` i stigande ordning.
+### 10.
+Which products have more than 100 in stock? Specify `ProductID`, `ProductName`, `UnitPrice`, and `UnitsInStock`. Sort first by `UnitPrice` in descending order and then by `UnitsInStock` in ascending order.
 ```SQL
 SELECT ProductID, ProductName, UnitPrice, UnitsInStock 
 FROM Products
@@ -120,56 +118,56 @@ WHERE UnitsInStock > 100
 ORDER BY UnitPrice DESC, UnitsInStock ASC
 ```
 
-### 11. 
-Vilket födelsedatum har den anställd som är äldst? Namnge kolumnen ”Födelsedag”.
+### 11.
+What is the birthdate of the oldest employee? Name the column "Birthdate."
 ```SQL
-SELECT MIN(BirthDate) as `Födelsedag`
+SELECT MIN(BirthDate) as `Birthdate`
 FROM Employees
 ```
 
-### 12. 
-Vad är snittpriset samt summan för produkter i kategori 2? Namnge kolumnerna ”SnittPris” och ”Summa”.
+### 12.
+What is the average price and sum for products in category 2? Name the columns "AveragePrice" and "Total."
 ```SQL
-SELECT AVG(UnitPrice) AS `SnittPris`, SUM(UnitPrice) as `Summa`
+SELECT AVG(UnitPrice) AS `AveragePrice`, SUM(UnitPrice) as `Total`
 FROM Products
 WHERE CategoryID = 2
 ```
 
-### 13. 
-Vad är den största rabatten som ges bland samtliga orderrader? Namnge kolumnen ”StörstRabatt”.
+### 13.
+What is the largest discount given among all order details? Name the column "LargestDiscount."
 ```SQL
-SELECT MAX(Discount) as `StörstRabatt` 
+SELECT MAX(Discount) as `LargestDiscount` 
 FROM Order_Details
 ```
 
-### 14. 
-Hur många olika produktkategorier finns det? Namnge kolumnen ”Antal”
+### 14.
+How many different product categories are there? Name the column "Count."
 ```SQL
-SELECT COUNT(*) as `Antal`
+SELECT COUNT(*) as `Count`
 FROM Categories
 ```
 
-### 15. 
-Hur många kunder finns det i varje land? Sortera efter antal kunder i fallande ordning. Ange Country och namnge en kolumn ”Antal”.
+### 15.
+How many customers are there in each country? Sort by the number of customers in descending order. Specify `Country` and name a column "Count."
 ```SQL
 SELECT DISTINCT Country,
-COUNT(*) as `Antal`
+COUNT(*) as `Count`
 FROM Customers
 GROUP BY Country  
-ORDER BY `Antal` DESC
+ORDER BY `Count` DESC
 ```
 
-### 16. 
-Vad är det genomsnittliga priset för produkter i kategorierna 1, 3, 5, och 7 grupperade efter leverantör? Ange SupplierID och namnge en kolumn ”SnittPris”.
+### 16.
+What is the average price for products in categories 1, 3, 5, and 7 grouped by supplier? Specify `SupplierID` and name a column "AveragePrice."
 ```SQL
-SELECT SupplierID, AVG(UnitPrice) AS `SnittPris`
+SELECT SupplierID, AVG(UnitPrice) AS `AveragePrice`
 FROM Products
 WHERE CategoryID in (1, 3, 5, 7)
 GROUP BY SupplierID
 ```
 
-### 17. 
-Ange CategoryID för de kategorier som innehåller fler än 10 produkter.
+### 17.
+Specify `CategoryID` for categories that contain more than 10 products.
 ```SQL
 SELECT CategoryID
 FROM Products
@@ -177,28 +175,28 @@ GROUP BY CategoryID
 HAVING COUNT(*) > 10
 ```
 
-### 18. 
-Visa CustomerID för de kunder som hade fler än 10 ordrar under perioden 1998-01- 01 och 1998-12-31. Skapa en kolumn ”Antal Ordrar” för att visa antalet ordrar.
+### 18.
+Show `CustomerID` for customers who had more than 10 orders between January 1, 1998, and December 31, 1998. Create a column "OrderCount" to display the number of orders.
 ```SQL
-SELECT CustomerID, COUNT(*) as `Antal Ordrar` 
+SELECT CustomerID, COUNT(*) as `OrderCount` 
 FROM Orders
 WHERE OrderDate BETWEEN '1998-01-01' AND '1998-12-31'
 GROUP BY CustomerID
 HAVING COUNT(*) > 10
 ```
 
-### 19. 
-Skapa en tio-i-top lista över de produkter som det har sålts mest av. Ange ProductID samt summan av antalet sålda enheter som ”Antal”.
+### 19.
+Create a top ten list of products that have sold the most. Specify `ProductID` and the sum of the quantity sold as "Quantity."
 ```SQL
-SELECT ProductID, SUM(Quantity) as `Antal`
+SELECT ProductID, SUM(Quantity) as `Quantity`
 FROM Order_Details
 GROUP BY ProductID  
-ORDER BY `Antal` DESC
+ORDER BY `Quantity` DESC
+LIMIT 10
 ```
 
-### 20. 
-<!-- TODO -->
-Visa en lista med de 10 senaste lagda ordrarna. Hämta FirstName och LastName från Employees tabellen och OrderDate från Orders tabellen.
+### 20.
+Show a list of the 10 most recently placed orders. Retrieve `FirstName` and `LastName` from the Employees table and `OrderDate` from the Orders table.
 ```SQL
 SELECT Employees.FirstName, Employees.LastName, OrderDate
 FROM Orders
@@ -206,4 +204,3 @@ INNER JOIN Employees ON Orders.EmployeeID=Employees.EmployeeID
 ORDER BY `Orders`.`OrderDate` DESC
 LIMIT 10
 ```
-
